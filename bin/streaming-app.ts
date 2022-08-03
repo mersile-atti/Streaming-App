@@ -2,8 +2,17 @@
 import 'source-map-support/register';
 import * as cdk from '@aws-cdk/core';
 import { StreamingAppStack } from '../lib/streaming-app-stack';
+import { IngestionPipelineStack } from '../lib/ingestion-pipeline-stack';
+
 
 const app = new cdk.App();
+new IngestionPipelineStack(app, 'IngestionPipelineStack', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+});
+
 new StreamingAppStack(app, 'StreamingAppStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
@@ -18,4 +27,9 @@ new StreamingAppStack(app, 'StreamingAppStack', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  
 });
